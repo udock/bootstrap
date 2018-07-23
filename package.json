@@ -1,0 +1,17 @@
+{
+  "name": "@udock/bootstrap",
+  "private": true,
+  "version": "0.0.1",
+  "description": "@udock/bootstrap",
+  "repository": {},
+  "main": "index.js",
+  "files": [
+    "lib",
+    "template",
+    "index.js"
+  ],
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "lodash": "^4.17.4"
+  }
+}
