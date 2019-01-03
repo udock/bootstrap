@@ -1,6 +1,5 @@
 'use strict'
-const WebpackChain = require('webpack-chain')
-
+const _ = require('lodash')
 const chalk = require('chalk')
 const FRAMEWORK_NAMESPACE = '@udock'
 
@@ -23,7 +22,7 @@ module.exports = function (webpackConfig) {
     return false
   }
 
-  if (webpackConfig instanceof WebpackChain) {
+  if (_.isFunction(_.get(webpackConfig, 'toConfig'))) {
     // 通过 webpack-chain 修改 webpack 配置
     webpackConfig
       .plugin('udock-bootstrap-plugin').use(udockBootstrapPlugin)
