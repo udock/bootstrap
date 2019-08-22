@@ -1,6 +1,6 @@
 {
   "name": "@udock/bootstrap",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "@udock/bootstrap",
   "repository": {},
   "main": "index.js",
