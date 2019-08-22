@@ -26,6 +26,10 @@ module.exports = function (webpackConfig: Config | webpack.Configuration) {
 
   if ('toConfig' in webpackConfig) {
     // 通过 webpack-chain 修改 webpack 配置
+
+    // 添加框架启动入口
+    webpackConfig.entry('app').prepend('@udock/bootstrap')
+
     webpackConfig
       .plugin('udock-bootstrap-plugin').use(udockBootstrapPlugin)
 
@@ -45,6 +49,11 @@ module.exports = function (webpackConfig: Config | webpack.Configuration) {
       .add(udockDynamicCompileIncludes)
   } else {
     // 通过直接修改 webpack config 配置
+    const entry:string[] = _.get(webpackConfig, 'entry.app')
+    if (entry) {
+      entry.unshift('@udock/bootstrap')
+    }
+
     webpackConfig.module = webpackConfig.module || {} as webpack.Module
     const rules = webpackConfig.module.rules
     webpackConfig.plugins = webpackConfig.plugins || []

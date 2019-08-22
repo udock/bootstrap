@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var lodash_1 = __importDefault(require("lodash"));
 var chalk_1 = __importDefault(require("chalk"));
 var FRAMEWORK_NAMESPACE = '@udock';
 module.exports = function (webpackConfig) {
@@ -25,6 +26,8 @@ module.exports = function (webpackConfig) {
     };
     if ('toConfig' in webpackConfig) {
         // 通过 webpack-chain 修改 webpack 配置
+        // 添加框架启动入口
+        webpackConfig.entry('app').prepend('@udock/bootstrap');
         webpackConfig
             .plugin('udock-bootstrap-plugin').use(udockBootstrapPlugin);
         // 框架 loader
@@ -43,6 +46,10 @@ module.exports = function (webpackConfig) {
     }
     else {
         // 通过直接修改 webpack config 配置
+        var entry = lodash_1.default.get(webpackConfig, 'entry.app');
+        if (entry) {
+            entry.unshift('@udock/bootstrap');
+        }
         webpackConfig.module = webpackConfig.module || {};
         var rules = webpackConfig.module.rules;
         webpackConfig.plugins = webpackConfig.plugins || [];
